@@ -15,8 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-//test Syll Ababacar
-
+//test Syll Ababacar@Baba's 
 //test Amira Zaafouri
 public class MainActivity extends Activity {
 
@@ -60,7 +59,7 @@ public class MainActivity extends Activity {
                             Toast.makeText(this, "plz enter your name !!", Toast.LENGTH_SHORT).show();
                         else {
                             Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
-                            startActivity(i);
+                             this.startActivity(i);
 
                         }
                     }
