@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 //TEST SYLL ABABABCAR
 public class MainActivity extends Activity {
 
