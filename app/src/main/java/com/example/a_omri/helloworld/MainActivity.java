@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-//TEST SYLL ABABABCAR @A.SylL
+//test Zaafouri
 public class MainActivity extends Activity {
 
     TextView registerScreen;
