@@ -15,7 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-//test Zaafouri
+//test Syll Ababacar
+
 public class MainActivity extends Activity {
 
     TextView registerScreen;
@@ -58,7 +59,7 @@ public class MainActivity extends Activity {
                             Toast.makeText(this, "plz enter your name !!", Toast.LENGTH_SHORT).show();
                         else {
                             Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
-                            startActivity(i);
+                             this.startActivity(i);
 
                         }
                     }
