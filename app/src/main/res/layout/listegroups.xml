@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#addded">
+
+        <!--  Header  Starts-->
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/avatar"
+
+            />
+
+        <TextView
+            android:id="@+id/pseudo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/avatar"
+            android:layout_alignTop="@+id/avatar"
+            android:textStyle="bold"
+            android:text="Pseudo Name"
+            />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_alignLeft="@+id/pseudo"
+            android:layout_below="@+id/pseudo"
+            android:text="Texte de mon tweet"
+            />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ajoutlogo"
+            android:id="@+id/button2"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You can add your own group !!"
+            android:id="@+id/textView3"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_alignBottom="@+id/button2"
+            android:layout_toStartOf="@+id/button2"
+            android:layout_alignTop="@+id/button2" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView"
+            android:layout_below="@+id/avatar"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/button2" />
+        <!--  Header Ends -->
+
+
+        <!-- Registration Form -->
+        <!-- Registration Form Ends -->
+    </RelativeLayout>
+</ScrollView>
