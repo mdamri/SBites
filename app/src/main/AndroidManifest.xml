@@ -14,9 +14,12 @@
             </intent-filter>
         </activity>
 
-        <!--  Entry for RegisterActivity.class -->
-        <activity android:name=".RegisterActivity"
-            android:label="Register New Account"></activity>
+        <!--  Entry for AddGroupActivity.class -->
+        <activity android:name=".AddGroupActivity"
+            android:label="Add New Group"></activity>
+
+        <activity android:name=".ListGroupActivity"
+            android:label="List Group"></activity>
 
     </application>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>

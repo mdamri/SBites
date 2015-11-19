@@ -41,7 +41,8 @@ public class MainActivity extends Activity {
                     .setPositiveButton("ok", new OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                           Intent i =new Intent(Intent.ACTION_APP_ERROR);
+                            startActivity(i);
                         }
                     }).create().show();
         }
@@ -50,16 +51,17 @@ public class MainActivity extends Activity {
         public void LoginTest(View view)
         {
                     if(view.getId()==R.id.link_to_register) {
-                        Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
+                        Intent i = new Intent(getApplicationContext(), AddGroupActivity.class);
                         startActivity(i);
                     }else if(view.getId()==R.id.btnStart) {
                         String strUserName = txtUserName.getText().toString();
                         if (TextUtils.isEmpty(strUserName))
                             Toast.makeText(this, "plz enter your name !!", Toast.LENGTH_SHORT).show();
                         else {
-                            Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
-                            startActivity(i);
 
+                            Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
+                            i.putExtra("pseudo",strUserName);
+                            startActivity(i);
                         }
                     }
 
