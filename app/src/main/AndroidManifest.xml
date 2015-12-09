@@ -19,6 +19,7 @@
         <activity android:name=".RegisterActivity"
             android:label="Register New Account"></activity>
         <activity android:name=".ListGroupActivity" android:label="List Group"></activity>
+        <activity android:name=".ChatroomActivity" android:label="Chatroom"></activity>
     </application>
 
 
