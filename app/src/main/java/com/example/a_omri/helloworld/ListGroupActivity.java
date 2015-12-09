@@ -28,7 +28,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * Created by A-OMRI on 05/11/2015.update Syll.Ababacar
+ * Created by A-OMRI on 05/11/2015.update Syll.ababacar
  */
 public class ListGroupActivity extends Activity {
     ListView listView = null ;
