@@ -6,7 +6,8 @@
     android:fillViewport="true">
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:background="#ffffff">
+        android:layout_height="wrap_content"
+        android:background="@color/background_floating_material_dark">
 
         <!--  Header Starts-->
         <LinearLayout android:id="@+id/header"
@@ -45,7 +46,7 @@
             android:padding="10dip"
             android:layout_below="@id/header"
             android:weightSum="1"
-            android:background="@color/hint_foreground_material_dark">
+            android:background="@android:color/black">
             <!--  Email Label -->
 
             <TextView
@@ -57,12 +58,14 @@
                 android:theme="@style/AlertDialog.AppCompat"
                 android:visibility="visible"
                 android:autoText="false"
-                android:textColor="@color/abc_color_highlight_material" />
+                android:textColor="@android:color/holo_orange_light" />
 
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#372c24"
-                android:text="Pseudo name"/>
+                android:textColor="#fefefd"
+                android:text="Pseudo name"
+                android:foreground="@android:color/transparent"
+                android:textSize="30dp" />
 
             <EditText android:id="@+id/pseudoname"
                 android:layout_width="fill_parent"
