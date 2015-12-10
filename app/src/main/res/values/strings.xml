@@ -1,4 +1,16 @@
 <resources>
-    <string name="app_name">HelloWorld</string>
+    <string name="app_name">Houmti</string>
     <string name="action_settings">Settings</string>
+
+
+    <string name="title">(Android WebSockets Chat App)</string>
+    <string name="author_name">By Ravi Tamada</string>
+    <string name="author_url">www.androidhive.info</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="btn_join">JOIN</string>
+    <string name="btn_send">Send</string>
+    <string name="envoyer">envoyer</string>
+    <string name="msgenv">bouton_env</string>
+    <string name="msgrecu">msgrecu</string>
+
 </resources>
