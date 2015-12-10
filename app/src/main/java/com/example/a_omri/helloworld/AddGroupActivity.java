@@ -38,7 +38,7 @@ import java.util.ArrayList;
  * Created by A-OMRI on 05/11/2015.
  */
 public class AddGroupActivity extends Activity {
-    //--------------
+    //----------------
     EditText nom  ;
     EditText desc;
     double longitude;
