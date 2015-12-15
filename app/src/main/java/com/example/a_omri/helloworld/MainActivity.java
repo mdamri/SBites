@@ -1,27 +1,27 @@
 package com.example.a_omri.helloworld;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
 
 //test Amira Zaafouri
 public class MainActivity extends Activity {
@@ -36,6 +36,10 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         registerScreen = (TextView) findViewById(R.id.link_to_register);
         txtUserName = (EditText) findViewById(R.id.pseudoname);
         btnLogin = (Button) findViewById(R.id.btnStart);
@@ -71,7 +75,7 @@ public class MainActivity extends Activity {
                         }
                     }).create().show();
         }
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+       /* LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
@@ -84,7 +88,7 @@ public class MainActivity extends Activity {
         }
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         longitude = location.getLongitude();
-        latitude = location.getLatitude();
+        latitude = location.getLatitude();*/
     }
 
         public void LoginTest(View view)
@@ -97,10 +101,28 @@ public class MainActivity extends Activity {
                         if (TextUtils.isEmpty(strUserName))
                             Toast.makeText(this, "plz enter your name !!"+longitude+"--"+latitude, Toast.LENGTH_SHORT).show();
                         else {
+                            String lien = "http://bites.factorycampus.net/CheckUser.php?user="+strUserName+"";
+                            StringBuilder sb ;
+                            String result ;
+                            JSONObject json_data ;
+                            sb = JsonToPhp.getData(lien, false);
 
-                            Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
-                            i.putExtra("pseudo",strUserName);
-                            startActivity(i);
+                            try{
+                                json_data = new JSONObject(sb.toString());
+                                result = json_data.getString("msg");
+                                if (result.equals("OK"))
+                                {
+                                    Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
+                                    i.putExtra("pseudo",strUserName);
+                                    startActivity(i);
+                                }
+                                else if(result.equals("EXIST")) {
+                                    Toast.makeText(this, "Pseudo inéxistant", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                Log.i("tagconvertstr", "Erreur de json", e);
+                            }
+
                         }
                     }
 
