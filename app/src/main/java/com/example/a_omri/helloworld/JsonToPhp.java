@@ -26,7 +26,6 @@ public class JsonToPhp {
          InputStream is = null;
          ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         try {
-            //commandes httpClient
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(lien);
             HttpResponse response = httpclient.execute(httppost);

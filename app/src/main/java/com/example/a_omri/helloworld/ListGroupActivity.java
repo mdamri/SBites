@@ -53,11 +53,9 @@ public class ListGroupActivity extends Activity {
 
                 json_data = jArray.getJSONObject(i);
                 donnees.add(json_data.getString("name"));
-                //r.add(json_data.getString("categorie"));
             }
             ListAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, donnees);
             listview.setAdapter(adapter);
-            // setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, donnees));
         } catch (JSONException e) {
             Log.e("taghttppost", "Erreur récupération JSON", e);
         }
