@@ -49,6 +49,7 @@ public class AddGroupActivity extends Activity {
             }
         });
     }
+    // a voir
     public void AddGroup(View view) {
         nomGroupe = nom.getText().toString();
         description = desc.getText().toString();
