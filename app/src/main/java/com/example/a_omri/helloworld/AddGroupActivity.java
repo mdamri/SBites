@@ -44,6 +44,7 @@ public class AddGroupActivity extends Activity {
             public void onClick(View arg0) {
                 // Closing registration screen
                 // Switching to Login Screen/closing addgroup screen
+
                 finish();
             }
         });
