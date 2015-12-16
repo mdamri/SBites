@@ -53,7 +53,7 @@ public class AddGroupActivity extends Activity {
     public void AddGroup(View view) {
         nomGroupe = nom.getText().toString();
         description = desc.getText().toString();
-        String lien = "http://bites.factorycampus.net/AddGroup.php?groupe_name="+nomGroupe+"&groupe_description="+description+"&lat=74.3170&long=10.755368";
+        String lien = "http://bites.factorycampus.net/AddGroup.php?groupe_name="+nomGroupe+"&groupe_description="+description+"&lat=34.743170&long=10.755368";
         StringBuilder sb ;
         String result = new String();
         JSONObject json_data ;
