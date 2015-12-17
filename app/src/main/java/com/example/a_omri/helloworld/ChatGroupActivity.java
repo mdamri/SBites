@@ -53,8 +53,6 @@ public class ChatGroupActivity extends Activity {
         StringBuilder sb ;
         String result ;
         JSONObject json_data ;
-        String message = new String();
-        String userName = new String();
         sb = JsonToPhp.getData(lien,true);
 
         result = sb.toString();
@@ -107,7 +105,7 @@ public class ChatGroupActivity extends Activity {
         utilisateur = (EditText) findViewById(R.id.message);
         user = utilisateur.getText().toString();
 
-        String lien = "http://bites.factorycampus.net/AddMsg.php?user="+user+"&group_id="+groupe_id+"&msg="+msg+"";
+        String lien = "http://bites.factorycampus.net/AddMsg.php?user=med&group_id=1&msg=" + msg + "";
         StringBuilder sb ;
         String result = new String();
         JSONObject json_data ;
