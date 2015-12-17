@@ -15,18 +15,19 @@
             android:layout_height="wrap_content"
             android:background="@layout/header_gradient"
             android:paddingTop="5dip"
-            android:paddingBottom="5dip">
+            android:paddingBottom="5dip"
+            android:orientation="vertical">
             <!-- Logo Start-->
-            <ImageView android:src="@drawable/icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView android:src="@drawable/logohoumti"
+                android:layout_width="match_parent"
+                android:layout_height="371dp"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Large Text"
+                android:text=""
                 android:id="@+id/textView"
                 android:layout_gravity="bottom" />
             <!-- Logo Ends -->
@@ -46,7 +47,7 @@
             android:padding="10dip"
             android:layout_below="@id/header"
             android:weightSum="1"
-            android:background="@android:color/black">
+            android:background="@color/pn_blue">
             <!--  Email Label -->
 
             <TextView
