@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:background="#ffffff">
+
+
+        <!-- Registration Form -->
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:background="@android:color/black"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:weightSum="1">
+            <!-- Full Name Label -->
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fefefd"
+                android:text="Nom de l'événement"
+                android:textSize="20dp" />
+
+            <EditText android:id="@+id/eventName"
+                android:layout_width="209dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true"
+                android:layout_marginBottom="20dip"
+                android:textColor="#0b84aa"/>
+            <!--  Email Label -->
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fefefd"
+                android:text="Description de l'événement"
+                android:textSize="20dp"/>
+            <EditText android:id="@+id/Description"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true"
+                android:layout_marginBottom="20dip"
+                android:textColor="#025f7c"/>
+            <!-- Start Date -->
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fefefd"
+                android:text="Date début"
+                android:textSize="20dp"/>
+            <DatePicker
+                android:layout_width="wrap_content"
+                android:layout_height="97dp"
+                android:id="@+id/datePickerdebut"
+                android:layout_gravity="center_horizontal" />
+
+            <!-- Finish Date -->
+
+            <TimePicker
+                android:layout_width="wrap_content"
+                android:layout_height="98dp"
+                android:id="@+id/timePickerdebut" />
+
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fefefd"
+                android:text="Date fin"
+                android:textSize="20dp"
+                android:layout_weight="0.24" />
+            <DatePicker
+                android:layout_width="wrap_content"
+                android:layout_height="97dp"
+                android:id="@+id/datePickerFin"
+                android:layout_gravity="center_horizontal" />
+            <TimePicker
+                android:layout_width="wrap_content"
+                android:layout_height="97dp"
+                android:id="@+id/timePickerFin" />
+
+
+            <!-- Link to Login Screen -->
+
+            <Button android:id="@+id/btnRegister"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Ajouter événement"
+                android:onClick="AddEvent"/>
+
+            <TextView android:id="@+id/link_to_group"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Return"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="#025f7c"/>
+
+        </LinearLayout>
+        <!-- Registration Form Ends -->
+    </RelativeLayout>
+</ScrollView>
