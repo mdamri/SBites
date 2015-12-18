@@ -17,7 +17,7 @@
             android:paddingBottom="5dip"
             android:weightSum="1">
             <!-- Logo Start-->
-            <ImageView android:src="@drawable/logohoumti"
+            <ImageView android:src="@drawable/LogoHoumty1"
                 android:layout_width="wrap_content"
                 android:layout_height="383dp"
                 android:layout_weight="1.10" />
@@ -39,7 +39,7 @@
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#fefefd"
-                android:text="Full Group Name"
+                android:text="Nom du groupe"
                 android:textSize="20dp" />
 
             <EditText android:id="@+id/GroupName"
@@ -53,7 +53,7 @@
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#fefefd"
-                android:text="Group Subject"
+                android:text="Description du groupe"
                 android:textSize="20dp"/>
             <EditText android:id="@+id/Description"
                 android:layout_width="fill_parent"
