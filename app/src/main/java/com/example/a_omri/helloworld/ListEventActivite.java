@@ -37,7 +37,7 @@ public class ListEventActivite extends Activity {
         String p = this.getIntent().getStringExtra("GroupName");
         TextView t = (TextView) findViewById(R.id.GroupName);
         t.setText(p);
-        final ListView listview = (ListView) findViewById(R.id.listevent);
+        final ListView listview = (ListView) findViewById(R.id.listEvent);
         String lien = "http://bites.factorycampus.net/ListEvent.php?group_id="+p;
         StringBuilder sb ;
         String result ;

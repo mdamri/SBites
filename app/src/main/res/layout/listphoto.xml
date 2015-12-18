@@ -37,7 +37,7 @@
             android:layout_height="65dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/Add"
+            android:background="@drawable/add"
             android:id="@+id/button2"
             android:onClick="AjoutGroup"
             android:layout_alignParentBottom="true"

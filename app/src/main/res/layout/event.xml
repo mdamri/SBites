@@ -15,7 +15,7 @@
             android:id="@+id/avatar"
             android:layout_width="100dp"
             android:layout_height="80dp"
-            android:background="@drawable/avatarEvent"
+            android:background="@drawable/avatarevent"
 
             />
 
@@ -37,7 +37,7 @@
             android:layout_height="65dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/Add"
+            android:background="@drawable/add"
             android:id="@+id/AjoutEvent"
             android:onClick="AjoutEvent"
             android:layout_alignParentBottom="true"
@@ -47,7 +47,7 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listView"
+            android:id="@+id/listEvent"
             android:fastScrollEnabled="true"
             android:dividerHeight="1dp"
             android:layout_alignParentStart="true"
