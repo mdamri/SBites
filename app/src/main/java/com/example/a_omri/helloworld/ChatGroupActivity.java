@@ -26,7 +26,8 @@ public class ChatGroupActivity extends Activity {
     String groupe_id;
     String groupeName;
     String user;
-
+    Bundle tmp=new Bundle();
+    ArrayList<Message> messages = new ArrayList<Message>();
 
 
     @Override
@@ -38,29 +39,31 @@ public class ChatGroupActivity extends Activity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
+           // messages =(ArrayList) this.getIntent().getParcelableArrayListExtra("messages");
          TextView t = (TextView) findViewById(R.id.GroupName);
          t.setText(groupeName);//put the group name
         final ListView listview = (ListView) findViewById(R.id.listView);
         groupe_id=this.getIntent().getStringExtra("GroupId");
         groupeName=this.getIntent().getStringExtra("groupNam");
         user=this.getIntent().getStringExtra("user");
+
         String lien = "http://bites.factorycampus.net/ListMsg.php?group_id="+groupe_id+"&user="+user+"";
         StringBuilder sb ;
         String result ;
         JSONObject json_data ;
-        sb = JsonToPhp.getData(lien,true);
+        sb = JsonToPhp.getData(lien, true);
 
         result = sb.toString();
 
         try {
             JSONArray jArray = new JSONArray(result);
-            String[][] chat = new String[jArray.length()][2];
+           // String[][] chat = new String[jArray.length()][2];
             for (int i = 0; i < jArray.length(); i++) {
-
+                Message m = new Message();
                 json_data = jArray.getJSONObject(i);
-                chat[i][0] = (json_data.getString("username"));
-                chat[i][1] = (json_data.getString("msg"));
+                m.setUser(json_data.getString("username"));
+                m.setMsg(json_data.getString("msg"));
+                messages.add(m);
             }
             // String[][] chat = new String[][]{{userName},{message}};
             List<HashMap<String, String>> liste = new
@@ -68,15 +71,13 @@ public class ChatGroupActivity extends Activity {
 
             HashMap<String, String> element;
 
-            int j = 0;
-            int k = 0;
-            for (int i = 0; i < chat.length; i++) {
+            for (int i = 0; i < messages.size(); i++) {
                 //… on crée un élément pour la liste…
                 element = new HashMap<String, String>();
 
-                element.put("text1", chat[i][0]);
+                element.put("text1", messages.get(i).getUser());
 
-                element.put("text2", chat[i][1]);
+                element.put("text2", messages.get(i).getMsg());
                 liste.add(element);
             }
 
@@ -87,15 +88,20 @@ public class ChatGroupActivity extends Activity {
         } catch (JSONException e) {
             Log.e("taghttppost", "Erreur récupération JSON", e);
         }
+        tmp = savedInstanceState;
     }
+/*public void onBackPressed()
+{
 
-
+    Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
+    i.putExtra("messages",messages);
+    startActivity(i);
+}*/
 
     public void EnvoyerMessage(View view) {
 
         EditText tonEdit = (EditText) findViewById(R.id.message);
         String message = tonEdit.getText().toString();
-        Bundle tmp=new Bundle();
         String lien = "http://bites.factorycampus.net/AddMsg.php?user="+user+"&group_id="+groupe_id+"&msg=" +message+ "";
         StringBuilder sb ;
         String result = new String();
@@ -110,4 +116,5 @@ public class ChatGroupActivity extends Activity {
         }
         onCreate(tmp);
     }
+
 }

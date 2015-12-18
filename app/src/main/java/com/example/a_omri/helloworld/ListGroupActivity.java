@@ -24,18 +24,24 @@ import java.util.ArrayList;
  * Created by A-OMRI on 05/11/2015.
  */
 public class ListGroupActivity extends Activity {
-    @Override
+
+    ArrayList messageArrayList ;
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         // Set View to addgroup.xml
         setContentView(R.layout.listegroups);
 
-
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+       /* if(this.getIntent().getStringExtra("messages")== null) {
+            ArrayList<Message> messageArrayList = new ArrayList<Message>();
+        }
+        else {
+            messageArrayList = this.getIntent().getStringArrayListExtra("messages");
+        }*/
         final String p = this.getIntent().getStringExtra("pseudo");
         TextView t = (TextView) findViewById(R.id.pseudo);
         t.setText(p);
@@ -73,9 +79,11 @@ public class ListGroupActivity extends Activity {
                 i.putExtra("GroupId",donneesId.get(position));
                 i.putExtra("user",p);
                 i.putExtra("groupName",donnees.get(position));
+             //   i.putExtra("messages",messageArrayList);
                 startActivity(i);
             }
         });
+
     }
 
 
