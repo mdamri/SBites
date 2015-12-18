@@ -1,6 +1,7 @@
 package com.example.a_omri.helloworld;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -15,6 +16,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,18 +93,34 @@ public class ChatGroupActivity extends Activity {
         }
         tmp = savedInstanceState;
     }
-/*public void onBackPressed()
-{
 
-    Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
-    i.putExtra("messages",messages);
-    startActivity(i);
-}*/
-
+    public void AjoutPhoto(View view) {
+        Intent i = new Intent(getApplicationContext(), PhotosActivity.class);
+        i.putExtra("GroupId",groupe_id);
+        startActivity(i);
+    }
+public void ListerEvent(View view)
+    {
+        Intent i = new Intent(getApplicationContext(),ListEventActivite.class);
+        i.putExtra("GroupID",groupe_id);
+        i.putExtra("GroupName",groupeName);
+        startActivity(i);
+    }
+/*
+    public void AjoutPhoto(View view)
+    {
+        Intent i = new Intent(getApplicationContext(), ListEventActivite.class);
+        startActivity(i);
+    }*/
     public void EnvoyerMessage(View view) {
 
         EditText tonEdit = (EditText) findViewById(R.id.message);
         String message = tonEdit.getText().toString();
+        try {
+            message= URLEncoder.encode(message, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         String lien = "http://bites.factorycampus.net/AddMsg.php?user="+user+"&group_id="+groupe_id+"&msg=" +message+ "";
         StringBuilder sb ;
         String result = new String();

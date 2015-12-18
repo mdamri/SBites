@@ -3,9 +3,12 @@ package com.example.a_omri.helloworld;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.backup.SharedPreferencesBackupHelper;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -13,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.Settings;
+import android.text.StaticLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +34,10 @@ public class MainActivity extends Activity {
     TextView registerScreen;
     EditText txtUserName;
     Button btnLogin;
-
+    SharedPreferences sharedpreferences;
+    String strUserName;
+    static final String MyPREFERENCES="myprefs";
+    static final String Name = "";
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,38 +50,52 @@ public class MainActivity extends Activity {
         registerScreen = (TextView) findViewById(R.id.link_to_register);
         txtUserName = (EditText) findViewById(R.id.pseudoname);
         btnLogin = (Button) findViewById(R.id.btnStart);
-        ConnectivityManager cmanager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
-        NetworkInfo netinfo = cmanager.getActiveNetworkInfo();
-        final LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        if(!(sharedpreferences.getString(Name,"null")).equals("")){
+            strUserName=sharedpreferences.getString(MyPREFERENCES,Name);
+            Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
+            i.putExtra("pseudo",strUserName);
+            startActivity(i);
+        }
+        else {
 
-        if (!( netinfo.isConnected())) {
-            //Toast.makeText(this, "plz turn ON your internet connection !!", Toast.LENGTH_SHORT).show();
-            new AlertDialog.Builder(MainActivity.this)
-                    .setTitle("Connection erreur")
-                    .setMessage("plz turn ON your internet !!")
-                    .setCancelable(false)
-                    .setPositiveButton("ok", new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent i = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
-                            startActivity(i);
-                        }
-                    }).create().show();
+
+            ConnectivityManager cmanager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+            NetworkInfo netinfo = cmanager.getActiveNetworkInfo();
+            final LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+
+
+
+            if (!(netinfo.isConnected())) {
+                //Toast.makeText(this, "plz turn ON your internet connection !!", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Connection erreur")
+                        .setMessage("plz turn ON your internet !!")
+                        .setCancelable(false)
+                        .setPositiveButton("ok", new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+                                startActivity(i);
+                            }
+                        }).create().show();
+            }
+            if (!(manager.isProviderEnabled(LocationManager.GPS_PROVIDER))) {
+                //Toast.makeText(this, "plz turn ON your internet connection !!", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Connection erreur")
+                        .setMessage("plz turn ON your GPS connection !!")
+                        .setCancelable(false)
+                        .setPositiveButton("ok", new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(i);
+                            }
+                        }).create().show();
+            }
         }
-        if (!(manager.isProviderEnabled(LocationManager.GPS_PROVIDER))) {
-            //Toast.makeText(this, "plz turn ON your internet connection !!", Toast.LENGTH_SHORT).show();
-            new AlertDialog.Builder(MainActivity.this)
-                    .setTitle("Connection erreur")
-                    .setMessage("plz turn ON your GPS connection !!")
-                    .setCancelable(false)
-                    .setPositiveButton("ok", new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivity(i);
-                        }
-                    }).create().show();
-        }
+
 
     }
 
@@ -84,12 +105,15 @@ public class MainActivity extends Activity {
                         Intent i = new Intent(getApplicationContext(), AddGroupActivity.class);
                         startActivity(i);
                     }else if(view.getId()==R.id.btnStart) {
-                        String strUserName = txtUserName.getText().toString();
+                        strUserName = txtUserName.getText().toString();
                         if (TextUtils.isEmpty(strUserName))
                             Toast.makeText(this, "plz enter your name !!"+longitude+"--"+latitude, Toast.LENGTH_SHORT).show();
                         else {
                             String lien = "http://bites.factorycampus.net/CheckUser.php?user="+strUserName+"";
                             StringBuilder sb ;
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString(Name, strUserName);
+                            editor.commit();
                             String result ;
                             JSONObject json_data ;
                             sb = JsonToPhp.getData(lien, false);

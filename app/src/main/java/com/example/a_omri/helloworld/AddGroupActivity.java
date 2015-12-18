@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
  * Created by A-OMRI on 05/11/2015.
  */
@@ -53,6 +56,12 @@ public class AddGroupActivity extends Activity {
     public void AddGroup(View view) {
         nomGroupe = nom.getText().toString();
         description = desc.getText().toString();
+        try {
+           nomGroupe= URLEncoder.encode(nomGroupe, "utf-8");
+           description =  URLEncoder.encode(description, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         String lien = "http://bites.factorycampus.net/AddGroup.php?groupe_name="+nomGroupe+"&groupe_description="+description+"&lat=34.743170&long=10.755368";
         StringBuilder sb ;
         String result = new String();
