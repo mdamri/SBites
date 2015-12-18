@@ -21,6 +21,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *chatRoomActivity Dridi
@@ -31,6 +33,7 @@ public class ChatGroupActivity extends Activity {
     String user;
     Bundle tmp=new Bundle();
     ArrayList<Message> messages = new ArrayList<Message>();
+    private ListView listview;
 
 
     @Override
@@ -45,11 +48,46 @@ public class ChatGroupActivity extends Activity {
            // messages =(ArrayList) this.getIntent().getParcelableArrayListExtra("messages");
          TextView t = (TextView) findViewById(R.id.GroupName);
          t.setText(groupeName);//put the group name
-        final ListView listview = (ListView) findViewById(R.id.listView);
+        listview = (ListView) findViewById(R.id.listView);
         groupe_id=this.getIntent().getStringExtra("GroupId");
         groupeName=this.getIntent().getStringExtra("groupNam");
         user=this.getIntent().getStringExtra("user");
 
+        UptaeMessages(listview);
+        tmp = savedInstanceState;
+
+        int delay = 5000; // delay for 5 sec.
+        int period = 5000; // repeat every 10 secs.
+
+        Timer timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                TimerMethod();
+            }
+
+        }, delay, period);
+
+
+
+
+
+    }
+    private void TimerMethod()
+    {
+        this.runOnUiThread(Timer_Tick);
+    }
+
+    private Runnable Timer_Tick = new Runnable() {
+        public void run() {
+
+            UptaeMessages(listview);
+
+        }
+    };
+
+    private void UptaeMessages(ListView listview) {
         String lien = "http://bites.factorycampus.net/ListMsg.php?group_id="+groupe_id+"&user="+user+"";
         StringBuilder sb ;
         String result ;
@@ -57,7 +95,8 @@ public class ChatGroupActivity extends Activity {
         sb = JsonToPhp.getData(lien, true);
 
         result = sb.toString();
-
+        if(result.contains("no_msg"))
+            return;
         try {
             JSONArray jArray = new JSONArray(result);
            // String[][] chat = new String[jArray.length()][2];
@@ -91,7 +130,6 @@ public class ChatGroupActivity extends Activity {
         } catch (JSONException e) {
             Log.e("taghttppost", "Erreur récupération JSON", e);
         }
-        tmp = savedInstanceState;
     }
 
     public void AjoutPhoto(View view) {
@@ -133,7 +171,7 @@ public void ListerEvent(View view)
         } catch (Exception e) {
             Log.i("tagconvertstr", "Erreur de json", e);
         }
-        onCreate(tmp);
+        UptaeMessages(listview);
     }
 
 }
