@@ -2,6 +2,8 @@ package com.example.a_omri.helloworld;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.DataSetObserver;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -34,12 +37,15 @@ public class ChatGroupActivity extends Activity {
     Bundle tmp=new Bundle();
     ArrayList<Message> messages = new ArrayList<Message>();
     private ListView listview;
+    private MediaPlayer mp;
+    private ScrollView scrollview;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatgroup);
+        mp = MediaPlayer.create(this.getBaseContext(), R.raw.kl);
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -52,8 +58,7 @@ public class ChatGroupActivity extends Activity {
         groupe_id=this.getIntent().getStringExtra("GroupId");
         groupeName=this.getIntent().getStringExtra("groupNam");
         user=this.getIntent().getStringExtra("user");
-
-        UptaeMessages(listview);
+        scrollview = ((ScrollView) findViewById(R.id.scrollvi));
         tmp = savedInstanceState;
 
         int delay = 3000; // delay for 5 sec.
@@ -82,29 +87,51 @@ public class ChatGroupActivity extends Activity {
     private Runnable Timer_Tick = new Runnable() {
         public void run() {
 
-            UptaeMessages(listview);
+            UptaeMessages(listview,"");
 
         }
     };
 
-    private void UptaeMessages(ListView listview) {
+    private void UptaeMessages(final ListView listview, String myuserMessage) {
+
         String lien = "http://bites.factorycampus.net/ListMsg.php?group_id="+groupe_id+"&user="+user+"";
         StringBuilder sb ;
-        String result ;
+        String result="" ;
         JSONObject json_data ;
-        sb = JsonToPhp.getData(lien, true);
 
-        result = sb.toString();
-        if(result.contains("no_msg"))
-            return;
+        if(myuserMessage=="")
+        {
+            sb = JsonToPhp.getData(lien, true);
+            result = sb.toString();
+            if(result.contains("no_msg"))
+                return;
+        }
+
+
+        boolean Newmessage =false;
         try {
-            JSONArray jArray = new JSONArray(result);
-           // String[][] chat = new String[jArray.length()][2];
-            for (int i = 0; i < jArray.length(); i++) {
+            if(myuserMessage=="") {
+                JSONArray jArray = new JSONArray(result);
+                // String[][] chat = new String[jArray.length()][2];
+                for (int i = 0; i < jArray.length(); i++) {
+                    Message m = new Message();
+                    json_data = jArray.getJSONObject(i);
+                    String msgusername = json_data.getString("username").toString().toLowerCase().trim();
+                    String localuserName = user.toString().toLowerCase().trim();
+                    if (!msgusername.equals(localuserName)) {
+                        m.setUser(json_data.getString("username"));
+                        m.setMsg(json_data.getString("msg"));
+                        messages.add(m);
+                        Newmessage = true;
+                    }
+                }
+
+            }
+            else
+            {
                 Message m = new Message();
-                json_data = jArray.getJSONObject(i);
-                m.setUser(json_data.getString("username"));
-                m.setMsg(json_data.getString("msg"));
+                m.setUser("(Moi)");
+                m.setMsg(myuserMessage);
                 messages.add(m);
             }
             // String[][] chat = new String[][]{{userName},{message}};
@@ -112,21 +139,28 @@ public class ChatGroupActivity extends Activity {
                     ArrayList<HashMap<String, String>>();
 
             HashMap<String, String> element;
-
             for (int i = 0; i < messages.size(); i++) {
                 //… on crée un élément pour la liste…
                 element = new HashMap<String, String>();
 
-                element.put("text1", messages.get(i).getUser());
+                element.put("text2", messages.get(i).getUser());
 
-                element.put("text2", messages.get(i).getMsg());
+                element.put("text1", messages.get(i).getMsg());
                 liste.add(element);
             }
 
-            ListAdapter adapter = new SimpleAdapter(this,
+            final ListAdapter adapter = new SimpleAdapter(this,
                     liste, android.R.layout.simple_list_item_2, new String[]{"text1", "text2"}, new int[]{android.R.id.text1, android.R.id.text2});
             listview.setAdapter(adapter);
 
+            if(Newmessage) {
+                if (mp.isPlaying()) {
+                    mp.stop();
+                    mp.release();
+                    mp = MediaPlayer.create(this.getBaseContext(), R.raw.kl);
+                }
+                mp.start();
+            }
         } catch (JSONException e) {
             Log.e("taghttppost", "Erreur récupération JSON", e);
         }
@@ -171,7 +205,9 @@ public void ListerEvent(View view)
         } catch (Exception e) {
             Log.i("tagconvertstr", "Erreur de json", e);
         }
-        UptaeMessages(listview);
+        UptaeMessages(listview,tonEdit.getText().toString());
+
+        tonEdit.setText("");
     }
 
 }
