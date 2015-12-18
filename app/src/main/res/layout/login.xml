@@ -18,7 +18,7 @@
             android:paddingBottom="5dip"
             android:orientation="vertical">
             <!-- Logo Start-->
-            <ImageView android:src="@drawable/logohoumti"
+            <ImageView android:src="@drawable/logohoumty1"
                 android:layout_width="match_parent"
                 android:layout_height="371dp"
                 />
@@ -47,19 +47,19 @@
             android:padding="10dip"
             android:layout_below="@id/header"
             android:weightSum="1"
-            android:background="@color/pn_blue">
+            android:background="@color/bluechat">
             <!--  Email Label -->
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="The application need internet connection and GPS on you phone, plz turn them ON !!"
+                android:text="l'application a besoin que vous acttivez le GPS et une connexion internet."
                 android:id="@+id/erreur"
                 android:backgroundTint="@color/background_floating_material_dark"
                 android:theme="@style/AlertDialog.AppCompat"
                 android:visibility="visible"
                 android:autoText="false"
-                android:textColor="@android:color/holo_orange_light" />
+                android:textColor="@android:color/holo_red_dark" />
 
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
