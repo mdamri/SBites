@@ -75,20 +75,7 @@ public class MainActivity extends Activity {
                         }
                     }).create().show();
         }
-       /* LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
-            return;
-        }
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();*/
+
     }
 
         public void LoginTest(View view)
@@ -117,7 +104,7 @@ public class MainActivity extends Activity {
                                     startActivity(i);
                                 }
                                 else if(result.equals("EXIST")) {
-                                    Toast.makeText(this, "Pseudo inéxistant", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(this, "Pseudo existant", Toast.LENGTH_SHORT).show();
                                 }
                             } catch (Exception e) {
                                 Log.i("tagconvertstr", "Erreur de json", e);

@@ -24,11 +24,9 @@ import java.util.List;
  */
 public class ChatGroupActivity extends Activity {
     String groupe_id;
-    String msg;
+    String groupeName;
     String user;
-    EditText id;
-    EditText utilisateur;
-    EditText messageEnvo;
+
 
 
     @Override
@@ -40,16 +38,14 @@ public class ChatGroupActivity extends Activity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        // String p = this.getIntent().getStringExtra("Groupe");
-        // TextView t = (TextView) findViewById(R.id.GroupName);
-        // t.setText(p);//put the group name
+
+         TextView t = (TextView) findViewById(R.id.GroupName);
+         t.setText(groupeName);//put the group name
         final ListView listview = (ListView) findViewById(R.id.listView);
-
-        // groupe_id = t.getText().toString();
-        utilisateur = (EditText) findViewById(R.id.message);
-        user = utilisateur.getText().toString();
-
-        String lien = "http://bites.factorycampus.net/ListMsg.php?group_id=1&user=med";
+        groupe_id=this.getIntent().getStringExtra("GroupId");
+        groupeName=this.getIntent().getStringExtra("groupNam");
+        user=this.getIntent().getStringExtra("user");
+        String lien = "http://bites.factorycampus.net/ListMsg.php?group_id="+groupe_id+"&user="+user+"";
         StringBuilder sb ;
         String result ;
         JSONObject json_data ;
@@ -99,13 +95,8 @@ public class ChatGroupActivity extends Activity {
 
         EditText tonEdit = (EditText) findViewById(R.id.message);
         String message = tonEdit.getText().toString();
-        msg=message;
-        TextView t = (TextView) findViewById(R.id.GroupName);
-        groupe_id = t.getText().toString();
-        utilisateur = (EditText) findViewById(R.id.message);
-        user = utilisateur.getText().toString();
-
-        String lien = "http://bites.factorycampus.net/AddMsg.php?user=med&group_id=1&msg=" + msg + "";
+        Bundle tmp=new Bundle();
+        String lien = "http://bites.factorycampus.net/AddMsg.php?user="+user+"&group_id="+groupe_id+"&msg=" +message+ "";
         StringBuilder sb ;
         String result = new String();
         JSONObject json_data ;
@@ -117,6 +108,6 @@ public class ChatGroupActivity extends Activity {
         } catch (Exception e) {
             Log.i("tagconvertstr", "Erreur de json", e);
         }
-
+        onCreate(tmp);
     }
 }

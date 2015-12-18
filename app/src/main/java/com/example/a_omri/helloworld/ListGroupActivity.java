@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -34,7 +36,7 @@ public class ListGroupActivity extends Activity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        String p = this.getIntent().getStringExtra("pseudo");
+        final String p = this.getIntent().getStringExtra("pseudo");
         TextView t = (TextView) findViewById(R.id.pseudo);
         t.setText(p);
         final ListView listview = (ListView) findViewById(R.id.listView);
@@ -42,8 +44,9 @@ public class ListGroupActivity extends Activity {
         StringBuilder sb ;
         String result ;
         JSONObject json_data ;
-        ArrayList<String> donnees = new ArrayList();
-        sb = JsonToPhp.getData(lien,true);
+        final ArrayList<String> donnees = new ArrayList();
+        final ArrayList<String> donneesId = new ArrayList();
+        sb = JsonToPhp.getData(lien, true);
 
             result = sb.toString();
 
@@ -53,19 +56,30 @@ public class ListGroupActivity extends Activity {
 
                 json_data = jArray.getJSONObject(i);
                 donnees.add(json_data.getString("name"));
+                donneesId.add(json_data.getString("id"));
+
             }
             ListAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, donnees);
             listview.setAdapter(adapter);
         } catch (JSONException e) {
             Log.e("taghttppost", "Erreur récupération JSON", e);
         }
+        listview.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                String item = (String) listview.getItemAtPosition(position);
+                Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getApplicationContext(), ChatGroupActivity.class);
+                i.putExtra("GroupId",donneesId.get(position));
+                i.putExtra("user",p);
+                i.putExtra("groupName",donnees.get(position));
+                startActivity(i);
+            }
+        });
     }
 
 
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        String item = (String) l.getItemAtPosition(position);
-        Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
-    }
+
 
 
     public void AjoutGroup(View v) {
