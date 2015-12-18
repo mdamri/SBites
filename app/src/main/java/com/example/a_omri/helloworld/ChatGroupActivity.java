@@ -56,8 +56,8 @@ public class ChatGroupActivity extends Activity {
         UptaeMessages(listview);
         tmp = savedInstanceState;
 
-        int delay = 5000; // delay for 5 sec.
-        int period = 5000; // repeat every 10 secs.
+        int delay = 3000; // delay for 5 sec.
+        int period = 3000; // repeat every 10 secs.
 
         Timer timer = new Timer();
 
