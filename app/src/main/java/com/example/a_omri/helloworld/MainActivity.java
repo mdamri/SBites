@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
     Button btnLogin;
     SharedPreferences sharedpreferences;
     String strUserName;
-    static final String MyPREFERENCES="myprefs";
+    static final String MyPREFERENCES="Houmtymyprefs";
     static final String Name = "";
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -51,8 +51,9 @@ public class MainActivity extends Activity {
         txtUserName = (EditText) findViewById(R.id.pseudoname);
         btnLogin = (Button) findViewById(R.id.btnStart);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        if(!(sharedpreferences.getString(Name,"null")).equals("")){
-            strUserName=sharedpreferences.getString(MyPREFERENCES,Name);
+        String storedUserName = sharedpreferences.getString(Name,"");
+        if(!storedUserName.equals("")){
+            strUserName = storedUserName;
             Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
             i.putExtra("pseudo",strUserName);
             startActivity(i);
@@ -111,9 +112,7 @@ public class MainActivity extends Activity {
                         else {
                             String lien = "http://bites.factorycampus.net/CheckUser.php?user="+strUserName+"";
                             StringBuilder sb ;
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
-                            editor.putString(Name, strUserName);
-                            editor.commit();
+
                             String result ;
                             JSONObject json_data ;
                             sb = JsonToPhp.getData(lien, false);
@@ -123,6 +122,10 @@ public class MainActivity extends Activity {
                                 result = json_data.getString("msg");
                                 if (result.equals("OK"))
                                 {
+                                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                                    editor.putString(Name, strUserName);
+                                    editor.commit();
+
                                     Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
                                     i.putExtra("pseudo",strUserName);
                                     startActivity(i);
