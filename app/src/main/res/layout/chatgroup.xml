@@ -23,22 +23,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/widget_edittext_dark"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="30dp"
             android:layout_toRightOf="@+id/avatar"
             android:layout_alignTop="@+id/avatar"
             android:textSize="20dp"
             android:text="Groupe Name"
             />
-
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/tertiary_text_dark"
-            android:textSize="18dp"
-            android:text="Welcom to houmty"
-            android:layout_below="@+id/GroupName"
-            android:layout_alignStart="@+id/GroupName" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -64,9 +55,11 @@
             android:layout_alignBottom="@+id/button2"
             android:layout_toStartOf="@+id/button2"
             android:layout_alignTop="@+id/button2"
-            android:background="@android:color/darker_gray" />
+            android:background="@color/bg_msg_from" />
+
 
         <ListView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/listView"
@@ -76,7 +69,32 @@
             android:divider="#b5b5ae"
             android:layout_below="@+id/avatar"
             android:layout_above="@+id/button2"
-            android:background="@drawable/backgroundchat" />
+            android:background="@color/white"
+            />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="80dp"
+            android:background="@drawable/AddPhoto"
+            android:id="@+id/AjoutPhoto"
+            android:onClick="AjoutPhoto"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="@string/listEvent"
+            android:background="@color/bluechat"
+            android:textColor="@color/white"
+            android:id="@+id/buttonEvent"
+            android:onClick="ListerEvent"
+            android:enabled="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/listView" />
         <!--  Header Ends -->
 
 

@@ -13,9 +13,9 @@
 
         <ImageView
             android:id="@+id/avatar"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@drawable/avatarEvent"
+            android:background="@drawable/piccamera"
 
             />
 
@@ -24,11 +24,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@+id/avatar"
-            android:textSize="24dp"
-            android:text="Liste des evenement"
+            android:textSize="28dp"
+            android:text="Liste des Photos"
             />
 
         <Button
@@ -38,8 +38,8 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/Add"
-            android:id="@+id/AjoutEvent"
-            android:onClick="AjoutEvent"
+            android:id="@+id/button2"
+            android:onClick="AjoutGroup"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true" />
 

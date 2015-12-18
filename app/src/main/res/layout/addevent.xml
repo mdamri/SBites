@@ -16,14 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dip"
-            android:background="@android:color/black"
+            android:background="@android:color/white"
             android:layout_alignParentBottom="true"
             android:layout_alignParentTop="true"
             android:weightSum="1">
             <!-- Full Name Label -->
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#fefefd"
+                android:textColor="@android:color/black"
                 android:text="Nom de l'événement"
                 android:textSize="20dp" />
 
@@ -33,11 +33,11 @@
                 android:layout_marginTop="5dip"
                 android:singleLine="true"
                 android:layout_marginBottom="20dip"
-                android:textColor="#0b84aa"/>
+                android:textColor="@android:color/black"/>
             <!--  Email Label -->
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#fefefd"
+                android:textColor="@android:color/black"
                 android:text="Description de l'événement"
                 android:textSize="20dp"/>
             <EditText android:id="@+id/Description"
@@ -46,11 +46,11 @@
                 android:layout_marginTop="5dip"
                 android:singleLine="true"
                 android:layout_marginBottom="20dip"
-                android:textColor="#025f7c"/>
+                android:textColor="@android:color/black"/>
             <!-- Start Date -->
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#fefefd"
+                android:textColor="@android:color/black"
                 android:text="Date début"
                 android:textSize="20dp"/>
             <DatePicker
@@ -62,9 +62,10 @@
             <!-- Finish Date -->
 
             <TimePicker
-                android:layout_width="wrap_content"
-                android:layout_height="98dp"
-                android:id="@+id/timePickerdebut" />
+                android:layout_width="match_parent"
+                android:layout_height="97dp"
+                android:id="@+id/timePickerdebut"
+                android:layout_gravity="center_horizontal"/>
 
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

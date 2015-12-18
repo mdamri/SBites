@@ -12,5 +12,5 @@
     <string name="envoyer">envoyer</string>
     <string name="msgenv">bouton_env</string>
     <string name="msgrecu">msgrecu</string>
-
+    <string name="listEvent">Event</string>
 </resources>
