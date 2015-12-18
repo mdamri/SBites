@@ -6,7 +6,8 @@
     android:fillViewport="true">
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/bluechat">
 
         <!--  Header  Starts-->
 
@@ -69,7 +70,7 @@
             android:divider="#b5b5ae"
             android:layout_below="@+id/avatar"
             android:layout_above="@+id/button2"
-            android:background="@color/white"
+            android:background="@color/bluechat"
             />
         <Button
             style="?android:attr/buttonStyleSmall"
