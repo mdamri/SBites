@@ -1,5 +1,6 @@
 package com.example.a_omri.helloworld;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,6 +10,9 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.text.StaticLayout;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,7 +33,7 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 //test Amira Zaafouri
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements LocationListener {
     double longitude;
     double latitude;
     TextView registerScreen;
@@ -36,8 +41,14 @@ public class MainActivity extends Activity {
     Button btnLogin;
     SharedPreferences sharedpreferences;
     String strUserName;
-    static final String MyPREFERENCES="Houmtymyprefs";
+    static final String MyPREFERENCES = "Houmtymyprefs";
     static final String Name = "";
+    Location location;
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 10 meters
+
+    // The minimum time between updates in milliseconds
+    private static final long MIN_TIME_BW_UPDATES = 1; // 1 minute
+
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,25 +58,45 @@ public class MainActivity extends Activity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+        final LocationManager locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                MIN_TIME_BW_UPDATES,
+                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+        Log.d("Network", "Network");
+        if (locationManager != null) {
+            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location != null) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+        }
+
         registerScreen = (TextView) findViewById(R.id.link_to_register);
         txtUserName = (EditText) findViewById(R.id.pseudoname);
         btnLogin = (Button) findViewById(R.id.btnStart);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        String storedUserName = sharedpreferences.getString(Name,"");
-        if(!storedUserName.equals("")){
+        String storedUserName = sharedpreferences.getString(Name, "");
+        if (!storedUserName.equals("")) {
             strUserName = storedUserName;
             Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
-            i.putExtra("pseudo",strUserName);
+            i.putExtra("pseudo", strUserName);
             startActivity(i);
-        }
-        else {
+        } else {
 
 
             ConnectivityManager cmanager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
             NetworkInfo netinfo = cmanager.getActiveNetworkInfo();
-            final LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
-
-
 
             if (!(netinfo.isConnected())) {
                 //Toast.makeText(this, "plz turn ON your internet connection !!", Toast.LENGTH_SHORT).show();
@@ -81,7 +112,7 @@ public class MainActivity extends Activity {
                             }
                         }).create().show();
             }
-            if (!(manager.isProviderEnabled(LocationManager.GPS_PROVIDER))) {
+            if (!(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))) {
                 //Toast.makeText(this, "plz turn ON your internet connection !!", Toast.LENGTH_SHORT).show();
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Connection erreur")
@@ -128,6 +159,8 @@ public class MainActivity extends Activity {
 
                                     Intent i = new Intent(getApplicationContext(), ListGroupActivity.class);
                                     i.putExtra("pseudo",strUserName);
+                                    i.putExtra("longitude",longitude);
+                                    i.putExtra("latitude",latitude);
                                     startActivity(i);
                                 }
                                 else if(result.equals("EXIST")) {
@@ -142,4 +175,25 @@ public class MainActivity extends Activity {
 
 
         }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        longitude = location.getLongitude();
+        latitude = location.getAltitude();
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
 }

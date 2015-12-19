@@ -188,6 +188,8 @@ public void ListerEvent(View view)
 
         EditText tonEdit = (EditText) findViewById(R.id.message);
         String message = tonEdit.getText().toString();
+        if(message =="" || message == null || message.isEmpty())
+            return;
         try {
             message= URLEncoder.encode(message, "utf-8");
         } catch (UnsupportedEncodingException e) {
