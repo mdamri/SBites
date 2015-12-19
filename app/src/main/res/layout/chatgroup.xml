@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:id="@+id/scrollvi">
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -71,6 +72,8 @@
             android:layout_below="@+id/avatar"
             android:layout_above="@+id/button2"
             android:background="@color/bluechat"
+            android:stackFromBottom="true"
+            android:transcriptMode="alwaysScroll"
             />
         <Button
             style="?android:attr/buttonStyleSmall"
